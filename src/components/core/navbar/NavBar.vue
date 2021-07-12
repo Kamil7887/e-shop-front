@@ -23,6 +23,7 @@
               >Каталог</router-link
             >
           </li>
+          <li class="nav-item px-2 pt-2"><CartIcon></CartIcon></li>
           <li class="nav-item px-2">
             <router-link
               v-on:click="toUserPage"
@@ -36,14 +37,11 @@
             <router-link
               v-on:click="logout"
               v-if="isAuthenticated"
-              class="nav-link btn btn-outline-primary"
+              class="nav-link btn btn"
               to="/"
               ><p>Выход</p></router-link
             >
-            <router-link
-              v-else
-              class="nav-link btn btn-outline-primary"
-              to="/auth"
+            <router-link v-else class="nav-link btn btn" to="/auth"
               >Аутентификация</router-link
             >
           </li>
@@ -55,11 +53,13 @@
 
 <script>
 import router from "@/router";
+import CartIcon from "@/components/core/navbar/CartIcon.vue";
 export default {
   name: "NavBar",
   data() {
     return { auth: false };
   },
+  components: { CartIcon },
   computed: {
     isAuthenticated: function () {
       return this.$store.getters["auth/isAuthenticated"];
@@ -72,6 +72,7 @@ export default {
   methods: {
     logout: function () {
       this.$store.dispatch("auth/logout");
+      this.$store.commit("cart/clearCart");
     },
     toUserPage: function () {
       router.push("userPage");

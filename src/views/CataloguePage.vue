@@ -5,13 +5,15 @@
       v-for="product in this.productsList.slice((i - 1) * 3, i * 3)"
       :key="product.id"
     >
-      <ProductPreview :product="product"></ProductPreview>
+      <ProductPreview @clicked="showModal" :product="product"></ProductPreview>
     </div>
   </ul>
+  <ProductModal ref="modal"></ProductModal>
 </template>
 
 <script>
 import ProductPreview from "@/components/feautures/catalogue/ProductPreview";
+import ProductModal from "@/components/feautures/catalogue/ProductModal";
 export default {
   async mounted() {
     try {
@@ -31,7 +33,12 @@ export default {
       return this.productsList.length;
     },
   },
-  components: { ProductPreview },
+  components: { ProductPreview, ProductModal },
+  methods: {
+    showModal() {
+      this.$refs.modal.showModal();
+    },
+  },
 };
 </script>
 

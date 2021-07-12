@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="showModal"
+    @click="onPreviewClick"
     @mouseover="isActive = true"
     @mouseleave="isActive = false"
     class="card h-100"
@@ -16,20 +16,12 @@
     </div>
     <div class="card-footer">
       <p>Цена: {{ this.product.price }}</p>
-      <p>
-        <ProductModal :product="product" ref="modal"></ProductModal>
-      </p>
     </div>
   </div>
 </template>
 
-
-
-
 <script>
-import ProductModal from "@/components/feautures/catalogue/ProductModal";
 export default {
-  components: { ProductModal },
   data() {
     return { isActive: false };
   },
@@ -37,9 +29,9 @@ export default {
     product: Object,
   },
   methods: {
-    showModal: function () {
+    onPreviewClick: function () {
       this.$store.commit("product/setSelectedProduct", this.product);
-      this.$refs.modal.showModal();
+      this.$emit("clicked");
     },
   },
 };
