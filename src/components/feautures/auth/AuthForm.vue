@@ -101,7 +101,6 @@ export default {
           this.emailField = "";
           this.passwordField = "";
           this.$store.commit("auth/resetError");
-          console.log(this.$store.getters["auth/user"]);
           router.replace("/");
         } catch (e) {
           this.showError = true;

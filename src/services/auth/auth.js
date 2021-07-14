@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { generateTokenHeaders } from "@/helpers/generateTokenHeaders";
 
 Axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -22,12 +23,4 @@ export function updateUser(token, payload) {
 
 export function deleteUser(token) {
   return Axios.delete("/users/me/", generateTokenHeaders(token));
-}
-
-export function generateTokenHeaders(token) {
-  return {
-    headers: {
-      Authorization: "Token " + token,
-    },
-  };
 }

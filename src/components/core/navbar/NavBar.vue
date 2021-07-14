@@ -16,31 +16,13 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link
-              v-on:click="toCataloguePage"
-              class="nav-link btn"
-              to="/"
+            <router-link class="nav-link btn" to="cataloguePage"
               >Каталог</router-link
             >
           </li>
           <li class="nav-item px-2 pt-2"><CartIcon></CartIcon></li>
-          <li class="nav-item px-2">
-            <router-link
-              v-on:click="toUserPage"
-              v-if="isAuthenticated"
-              class="nav-link btn"
-              to="/"
-              ><p>{{ userEmail }}</p></router-link
-            >
-          </li>
-          <li class="nav-item px-2">
-            <router-link
-              v-on:click="logout"
-              v-if="isAuthenticated"
-              class="nav-link btn btn"
-              to="/"
-              ><p>Выход</p></router-link
-            >
+          <li class="nav-item px-2 mt-2">
+            <ProfileWidget v-if="isAuthenticated"></ProfileWidget>
             <router-link v-else class="nav-link btn btn" to="/auth"
               >Аутентификация</router-link
             >
@@ -52,14 +34,14 @@
 </template>
 
 <script>
-import router from "@/router";
 import CartIcon from "@/components/core/navbar/CartIcon.vue";
+import ProfileWidget from "@/components/core/navbar/ProfileWidget";
 export default {
   name: "NavBar",
   data() {
     return { auth: false };
   },
-  components: { CartIcon },
+  components: { CartIcon, ProfileWidget },
   computed: {
     isAuthenticated: function () {
       return this.$store.getters["auth/isAuthenticated"];
@@ -67,18 +49,6 @@ export default {
     userEmail: function () {
       const user = this.$store.getters["auth/user"];
       return user.email;
-    },
-  },
-  methods: {
-    logout: function () {
-      this.$store.dispatch("auth/logout");
-      this.$store.commit("cart/clearCart");
-    },
-    toUserPage: function () {
-      router.push("userPage");
-    },
-    toCataloguePage: function () {
-      router.push("cataloguePage");
     },
   },
 };

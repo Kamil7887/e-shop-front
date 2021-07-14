@@ -30,6 +30,7 @@
 
 <script>
 import CartProductPreview from "@/components/feautures/cart/CartProductPreview";
+import { createOrderProductItems } from "@/repository/orders/orders_repository.js";
 export default {
   components: { CartProductPreview },
   computed: {
@@ -37,7 +38,6 @@ export default {
       return this.$store.state.cart.cart;
     },
     productIndexes() {
-      console.log(this.$store.state.cart.productIndexes);
       return this.$store.state.cart.productIndexes;
     },
     total() {
@@ -50,13 +50,26 @@ export default {
       return total;
     },
   },
+
   methods: {
     clearCart() {
       this.$store.commit("cart/clearCart");
     },
-    buy() {
+    async buy() {
       if (!this.$store.getters["auth/isAuthenticated"]) {
         alert("Войдите в аккаунт");
+      } else {
+        const user_id = this.$store.state.auth.user.id;
+        const token = this.$store.state.auth.token;
+        const res = await createOrderProductItems(
+          user_id,
+          this.cartObject,
+          token
+        );
+        //TODO: navigate to payment page
+        if (res === "ok") {
+          this.$store.commit("cart/clearCart");
+        }
       }
     },
   },

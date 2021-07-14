@@ -1,8 +1,8 @@
-export function ProductsException() {
-  this.message = "Не удалось получить список товаров";
-  this.name = "ProductsException";
+export function OrderException() {
+  this.message = "Не удалось получить список заказов";
+  this.name = "OrderException";
 }
 
-ProductsException.prototype.toString = function() {
+OrderException.prototype.toString = function() {
   return `${this.name}: "${this.message}"`;
 };

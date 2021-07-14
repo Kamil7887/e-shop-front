@@ -109,7 +109,6 @@ export default {
             if (payload[key] == "") delete payload[key];
           });
           const token = this.$store.state.auth.token;
-          console.log(token);
           await this.$store.dispatch("auth/updateUser", {
             payload: payload,
             token: token,

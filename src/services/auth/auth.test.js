@@ -37,7 +37,6 @@ test("delete user", async () => {
   await createUser("test@gmail.com", "password");
   const resToken = await getToken("test@gmail.com", "password");
   const token = resToken.data.token;
-  console.log(token);
   const resUser = await deleteUser(token);
   expect(resUser.status).toBe(204);
 });

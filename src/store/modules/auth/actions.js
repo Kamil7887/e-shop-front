@@ -10,7 +10,6 @@ export const actions = {
     try {
       await auth.createUser(payload.email, payload.password);
     } catch (e) {
-      console.log(e);
       commit("setRegisterError");
       throw new RegisterException();
     }
@@ -32,8 +31,6 @@ export const actions = {
     try {
       const payload = data.payload;
       const token = data.token;
-      console.log(token);
-      console.log(payload);
       const res = await auth.updateUser(token, payload);
       commit("setUser", res.data);
     } catch {

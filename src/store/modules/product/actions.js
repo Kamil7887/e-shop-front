@@ -7,7 +7,6 @@ export const actions = {
       const res = await products.getProducts();
       commit("setProductsList", res.data);
     } catch (e) {
-      console.log(e);
       commit("setProductsException");
       throw new ProductsException();
     }
