@@ -7,6 +7,18 @@ export function getOrderProductItems(token) {
   return Axios.get("/order-product-list/", generateTokenHeaders(token));
 }
 
+export function getOrderById(id, token) {
+  return Axios.get(`/order/${id}`, generateTokenHeaders(token));
+}
+
+export function payOrder(id, token) {
+  return Axios.patch(
+    `/order/${id}`,
+    { was_paid: true },
+    generateTokenHeaders(token)
+  );
+}
+
 export async function createOrderProductItems(user_id, cart_object, token) {
   try {
     let payload = {};

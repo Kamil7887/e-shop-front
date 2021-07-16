@@ -10,6 +10,10 @@ export const mutations = {
   clearOrders(state) {
     state.ordersList = {};
   },
+
+  setWasPaid(state) {
+    state.ordersList = {};
+  },
 };
 function generateOrganisedOrders(orderProductArray) {
   var organisedOrders = {};
